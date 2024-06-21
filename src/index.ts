@@ -31,18 +31,38 @@ type Person<T>  = {
 "url": T
 } 
 
+type Args = (...args : any[]) => any;
 
-
-export const throttle = <T>(callbackThrottle: (...args : unknown[]) => T, delay: number) => {
-let throttleTimer: NodeJS.Timeout | null  = null;
-  return (...args: unknown[]) => {
-      if (throttleTimer !== null) return;
-      callbackThrottle(...args);
+export const throttle = (callbackThrottle: Args, delay: number): ((...args: Parameters<Args>) => any) => {
+let throttleTimer: NodeJS.Timeout | undefined  = undefined;
+  return (...args: Parameters<Args>) => {
+      if (throttleTimer !== undefined) return;
       throttleTimer = setTimeout(() => {
-        throttleTimer = null;
+        throttleTimer = undefined;
       }, delay);
+      return callbackThrottle(...args);
     };
 }
+
+
+/* 
+//El usuario decide ejecutar otra accion y tarda menos que el delay, el metodo cancel para la iteraccion
+const  throttleWithCancel = (callbackThrottle: Args, delay: number): ((...args: Parameters<Args>) => any) => {
+  let throttleTimer: NodeJS.Timeout | undefined  = undefined;
+  return  {
+    throttled: (...args: Parameters<Args>) => {
+      if (throttleTimer !== undefined) return;
+        callbackThrottle(...args);
+        throttleTimer = setTimeout(() => {
+          throttleTimer = undefined;
+        }, delay);
+    },
+    cancel: () => {
+      clearTimeout(throttleTimer);
+      throttleTimer = undefined;
+    },
+  };
+} */
 
 
 const callbackApi = async <T>(): Promise<Person<T>[] | undefined> =>{
@@ -81,7 +101,7 @@ const eventThrottle = throttle(() => {
       createPersonList(datas);
       return datas;
     }
-  })}, 2000);
+  })},750);
  
 
 // create list of persons
