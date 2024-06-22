@@ -45,8 +45,6 @@ let throttleTimer: NodeJS.Timeout | undefined  = undefined;
 }
 
 
-
-
 const callbackApi = async <T>(): Promise<Person<T>[] | undefined> =>{
   //fetch
   const container: HTMLElement | null = document.querySelector('.wrapp');
