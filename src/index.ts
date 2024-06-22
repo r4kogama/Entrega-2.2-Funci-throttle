@@ -31,11 +31,11 @@ type Person<T>  = {
 "url": T
 } 
 
-type Args = (...args : any[]) => any;
+type Args <T extends any[], E> = (...args : T) => E | undefined;
 
-export const throttle = (callbackThrottle: Args, delay: number): ((...args: Parameters<Args>) => any) => {
+export const throttle = <T extends any[], E>(callbackThrottle: Args<T, E>, delay: number): Args <T, E>  => {
 let throttleTimer: NodeJS.Timeout | undefined  = undefined;
-  return (...args: Parameters<Args>) => {
+  return (...args: T) => {
       if (throttleTimer !== undefined) return;
       throttleTimer = setTimeout(() => {
         throttleTimer = undefined;
@@ -45,32 +45,16 @@ let throttleTimer: NodeJS.Timeout | undefined  = undefined;
 }
 
 
-/* 
-//El usuario decide ejecutar otra accion y tarda menos que el delay, el metodo cancel para la iteraccion
-const  throttleWithCancel = (callbackThrottle: Args, delay: number): ((...args: Parameters<Args>) => any) => {
-  let throttleTimer: NodeJS.Timeout | undefined  = undefined;
-  return  {
-    throttled: (...args: Parameters<Args>) => {
-      if (throttleTimer !== undefined) return;
-        callbackThrottle(...args);
-        throttleTimer = setTimeout(() => {
-          throttleTimer = undefined;
-        }, delay);
-    },
-    cancel: () => {
-      clearTimeout(throttleTimer);
-      throttleTimer = undefined;
-    },
-  };
-} */
 
 
 const callbackApi = async <T>(): Promise<Person<T>[] | undefined> =>{
   //fetch
-  const container: HTMLElement | null = document.querySelector('.content-info');
+  const container: HTMLElement | null = document.querySelector('.wrapp');
   const  positionScroll: number = Math.ceil(window.scrollY) -1;
   if(container?.scrollHeight !== undefined) {
-    const heightContainer: number = container?.scrollHeight - window.innerHeight;
+    const heightContainer: number = (container?.scrollHeight  - window.innerHeight) - 287;
+    console.log("posicion scroll: "+ positionScroll)
+    console.log("altura container: "+heightContainer)
     if(positionScroll > heightContainer) {
       try{
         const response: Response = await fetch(objApi.url + objApi.attribute, {
@@ -84,6 +68,7 @@ const callbackApi = async <T>(): Promise<Person<T>[] | undefined> =>{
         })
         const data = await response.json();
         let results: Person<T>[] = data.results;
+        console.log(results)
         return results;
       }catch(err){
         console.error('Resquest error: '+ err);
@@ -101,7 +86,7 @@ const eventThrottle = throttle(() => {
       createPersonList(datas);
       return datas;
     }
-  })},750);
+  })},500);
  
 
 // create list of persons
@@ -113,17 +98,15 @@ const createPersonList = <T>(persons:  Person<T>[]): void => {
     liNodes +=
       `<li class="info-person" >
           <span>${person.name}</span>
-          <span>${person.gender}</span>
-          <span>${person.mass}</span>
-          <span>${person.height}</span>
-          <span>${person.hair_color}</span>
-          <span>${person.eye_color}</span>
-          <span>${person.skin_color}</span>
-          <span>${person.birth_year}</span>
-          <span>${person.homeworld}</span>
-          <span>${person.created}</span>
-          <span>${person.edited}</span>
-          <span>${person.url}</span>          
+          <span>Gender: ${person.gender}</span>
+          <span>Weight: ${person.mass}</span>
+          <span>Height: ${person.height}</span>
+          <span>Hair color: ${person.hair_color}</span>
+          <span>Eye color: ${person.eye_color}</span>
+          <span>Skin: ${person.skin_color}</span>
+          <span>Birtday: ${person.birth_year}</span>
+          <span>Homeworld: ${person.homeworld}</span>
+          <span class="last-child">Url: ${person.url}</span>          
       </li>`;
   }
   list.innerHTML = liNodes;

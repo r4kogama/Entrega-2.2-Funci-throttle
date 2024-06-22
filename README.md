@@ -29,3 +29,13 @@ npm install -D jest-environment-jsdom
 ```sh
 npm run test
 ```
+
+### Live Server web
+
+## El proyecto esta disponible en web para abrirlo se necesita un ***(live server)*** en el editor de texto o IDE.
+
+# Como alternativa se puede instalar un HTTP server y ejecutar el comando \_**http-server**\_ donde elegir distintas rutas del server
+
+```sh
+npm install --global http-server
+```

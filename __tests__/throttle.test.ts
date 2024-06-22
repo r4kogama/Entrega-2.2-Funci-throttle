@@ -12,7 +12,7 @@ describe('Testing Throttle: comprobando la ejecucion o no simultanea. Esta prueb
 
   beforeEach( () =>{ 
    fnCallback = jest.fn();
-   resultThrottle = throttle(fnCallback, 600);//umbral del delay
+   resultThrottle = throttle(fnCallback, 400);//umbral del delay
    time = jest.useFakeTimers();
    jest.spyOn(global, 'setTimeout');
  });
@@ -34,17 +34,17 @@ describe('Testing Throttle: comprobando la ejecucion o no simultanea. Esta prueb
 
   it('Llamadas al metodo Throttle, añadiendo un retardo superior a su umbral , como resultado recibe 2 respuestas', () =>{
     resultThrottle();
-    time.advanceTimersByTime(1000);
+    time.advanceTimersByTime(800);
     resultThrottle();
-    time.advanceTimersByTime(1500);
+    time.advanceTimersByTime(1200);
     expect(fnCallback).toHaveBeenCalledTimes(2);
   });
 
   it('Llamadas al metodo Throttle, añadiendo un retardo inferior a su umbral, recibe 1 respuesta', () => {
     resultThrottle();
-    time.advanceTimersByTime(300);
+    time.advanceTimersByTime(250);
     resultThrottle();
-    time.advanceTimersByTime(100);
+    time.advanceTimersByTime(150);
     expect(fnCallback).toHaveBeenCalledTimes(1);
   });
 
