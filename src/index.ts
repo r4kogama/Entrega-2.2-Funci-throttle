@@ -40,6 +40,7 @@ let throttleTimer: NodeJS.Timeout | undefined  = undefined;
       throttleTimer = setTimeout(() => {
         throttleTimer = undefined;
       }, delay);
+      console.log(...args);
       return callbackThrottle(...args);
     };
 }
@@ -68,7 +69,6 @@ const callbackApi = async <T>(): Promise<Person<T>[] | undefined> =>{
         })
         const data = await response.json();
         let results: Person<T>[] = data.results;
-        console.log(results)
         return results;
       }catch(err){
         console.error('Resquest error: '+ err);

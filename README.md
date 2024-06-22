@@ -1,6 +1,6 @@
 # Entrega-2.1-Funcion-debounce
 
-# Comandos de instalacion de TS y Jest
+### Comandos de instalacion
 
 ### Descarga e instalacion de todas las dependencias que estan en el package.json
 
@@ -32,9 +32,9 @@ npm run test
 
 ### Live Server web
 
-## El proyecto esta disponible en web para abrirlo se necesita un ***(live server)*** en el editor de texto o IDE.
+#### El proyecto esta disponible en web para abrirlo se necesita un ***(live server)*** en el editor de texto o IDE.
 
-# Como alternativa se puede instalar un HTTP server y ejecutar el comando \_**http-server**\_ donde elegir distintas rutas del server
+#### Como alternativa se puede instalar un HTTP server y ejecutar el comando \_http-server\_ donde elegir distintas rutas del server
 
 ```sh
 npm install --global http-server
