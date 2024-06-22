@@ -40,7 +40,6 @@ let throttleTimer: NodeJS.Timeout | undefined  = undefined;
       throttleTimer = setTimeout(() => {
         throttleTimer = undefined;
       }, delay);
-      console.log(...args);
       return callbackThrottle(...args);
     };
 }
