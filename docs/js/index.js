@@ -11,7 +11,6 @@ export const throttle = (callbackThrottle, delay) => {
         throttleTimer = setTimeout(() => {
             throttleTimer = undefined;
         }, delay);
-        console.log(...args);
         return callbackThrottle(...args);
     };
 };
