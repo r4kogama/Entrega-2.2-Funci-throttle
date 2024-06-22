@@ -38,6 +38,12 @@ npm run test
 npm run build
 ```
 
+### El comando renombrara la carpeta dist  que esta en docs a js
+
+```sh
+npx shx mv docs/dist/ docs/js/  
+```
+
 ## Live Server web
 
 #### El proyecto esta disponible en web para abrirlo se necesita un ***(live server)*** en el editor de texto o IDE.
