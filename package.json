@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "tsc": "tsc"
+    "build": "tsc",
+    "postbuild": "npx shx cp -R dist/ docs/",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,8 @@
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^24.1.0",
     "ts-jest": "^29.1.4",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "shx": "^0.3.3"
   },
   "dependencies": {
     "node-modules": "^0.0.1"

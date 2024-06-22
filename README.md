@@ -32,7 +32,13 @@ npm install -D jest-environment-jsdom
 npm run test
 ```
 
-### Live Server web
+### Git pages en ruta docs necesita los archivos que hay en dist, ejecucion de una copia de dist a docs
+
+```sh
+npm run build
+```
+
+## Live Server web
 
 #### El proyecto esta disponible en web para abrirlo se necesita un ***(live server)*** en el editor de texto o IDE.
 
